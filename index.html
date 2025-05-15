@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCartCount();
   });
-</script>
+<script>
 document.querySelectorAll('.product-card').forEach(card => {
   const prices = JSON.parse(card.getAttribute('data-prices'));
   const periodSelect = card.querySelector('.period-select');
@@ -433,6 +433,77 @@ document.querySelectorAll('.product-card').forEach(card => {
     priceDisplay.textContent = `$${prices[selectedPeriod].toFixed(2)}`;
   });
 });
+
+  
+</script>
+<script>
+  // Update price display based on selected period
+  document.querySelectorAll('.product-card').forEach(card => {
+    const prices = JSON.parse(card.getAttribute('data-prices'));
+    const periodSelect = card.querySelector('.period-select');
+    const priceDisplay = card.querySelector('.price-display');
+
+    // Set initial price based on default selected period
+    priceDisplay.textContent = `$${prices[periodSelect.value].toFixed(2)}`;
+
+    // Update price on period change
+    periodSelect.addEventListener('change', () => {
+      const selectedPeriod = periodSelect.value;
+      priceDisplay.textContent = `$${prices[selectedPeriod].toFixed(2)}`;
+    });
+  });
+
+  // Cart logic
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  document.querySelectorAll('.product-card').forEach(card => {
+    const buyBtn = card.querySelector('button');
+
+    buyBtn.addEventListener('click', () => {
+      const title = card.querySelector('h3').textContent.trim();
+      const periodSelect = card.querySelector('.period-select');
+      const selectedPeriod = periodSelect.value;
+      const prices = JSON.parse(card.getAttribute('data-prices'));
+      const price = prices[selectedPeriod];
+
+      // Compose product name with period, capitalize first letter
+      const productName = `${title} - ${selectedPeriod.charAt(0).toUpperCase() + selectedPeriod.slice(1)}`;
+
+      // Check if product already in cart
+      const existingItemIndex = cart.findIndex(item => item.name === productName);
+      if (existingItemIndex > -1) {
+        // Increase quantity
+        cart[existingItemIndex].quantity += 1;
+      } else {
+        // Add new item
+        cart.push({
+          name: productName,
+          price: price,
+          quantity: 1
+        });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // Update cart count badge
+      updateCartCount();
+      alert(`${productName} added to cart!`);
+    });
+  });
+
+  // Update the cart count badge display
+  function updateCartCount() {
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cart-count');
+    if (badge) {
+      badge.textContent = count;
+      badge.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+  }
+
+  // Call on page load to show count if any
+  updateCartCount();
+</script>
 
 </body>
 </html>
