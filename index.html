@@ -22,7 +22,6 @@
   </style>
 </head>
 <body class="bg-gray-950 text-white">
-  <!-- Header -->
   <header
     class="bg-gray-900 shadow-md p-4 flex justify-between items-center"
   >
@@ -53,7 +52,6 @@
     </nav>
   </header>
 
-  <!-- Categories -->
   <section class="p-6">
     <h2 class="text-2xl font-semibold mb-4">Browse by Game</h2>
     <div class="flex flex-wrap gap-4">
@@ -85,11 +83,9 @@
     </div>
   </section>
 
-  <!-- Main Product Area -->
   <main class="p-6">
     <h2 class="text-3xl font-semibold mb-6">Featured Products</h2>
     <div class="flex flex-wrap gap-6 justify-center">
-      <!-- Product Card 1 -->
       <div
         class="bg-gray-800 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]"
       >
@@ -111,7 +107,6 @@
           </button>
         </div>
       </div>
-      <!-- Product Card 2 -->
       <div
         class="bg-gray-800 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]"
       >
@@ -133,7 +128,6 @@
           </button>
         </div>
       </div>
-      <!-- Product Card 3 -->
       <div
         class="bg-gray-800 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]"
       >
@@ -158,30 +152,27 @@
     </div>
   </main>
 
-  <!-- Stats Section -->
   <section
-    class="bg-gray-900 p-6 mt-12 flex justify-center gap-12 text-white text-lg font-semibold"
+    class="p-6 mt-12 flex justify-center gap-12 text-white text-lg font-semibold"
   >
     <div>
       Customers: <span id="customers-count" class="text-blue-400">0</span>+
     </div>
     <div>
-      Reviews: <span class="text-yellow-400">5/5</span>
+      Reviews: <span class="text-yellow-400">5/5 ★</span>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="bg-gray-900 p-4 mt-6 text-center text-gray-500">
     &copy; 2025 Lawsuit. All rights reserved.
   </footer>
 
   <script>
-    // Animate counting from 0 to 400 for Customers count
     const customersCount = document.getElementById('customers-count');
     let count = 0;
     const target = 400;
-    const increment = 5; // Increment step
-    const intervalTime = 25; // ms
+    const increment = 5;
+    const intervalTime = 25;
 
     const counter = setInterval(() => {
       count += increment;
