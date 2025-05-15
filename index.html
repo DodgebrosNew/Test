@@ -302,6 +302,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 </script>
+<script>
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  document.querySelectorAll('.product-card').forEach(card => {
+    const button = card.querySelector('button');
+    button.addEventListener('click', () => {
+      const title = card.querySelector('h3').innerText;
+      const price = card.querySelector('span.text-lg').innerText;
+      const img = card.querySelector('img').src;
+
+      const product = {
+        title,
+        price,
+        img
+      };
+
+      cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      console.log("Added to cart:", product);
+      console.log("Cart now:", cart);
+      alert(`"${title}" added to cart!`);
+    });
+  });
+</script>
 
 </body>
 </html>
