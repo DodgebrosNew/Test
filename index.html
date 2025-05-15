@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,16 +15,36 @@
 
     body {
       font-family: 'Inter', sans-serif;
+      background: #0f172a; /* dark background for particles */
+      position: relative;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      color: white;
     }
 
     .font-poppins {
       font-family: 'Poppins', sans-serif;
     }
+
+    /* Make particles container fill the screen and be behind everything */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      background-color: #0f172a;
+    }
   </style>
 </head>
 <body class="bg-gray-950 text-white">
+  <!-- particles container -->
+  <div id="particles-js"></div>
+
   <header
-    class="bg-gray-900 shadow-md p-4 flex justify-between items-center"
+    class="bg-gray-900 bg-opacity-80 shadow-md p-4 flex justify-between items-center relative z-10"
   >
     <h1 class="text-3xl font-semibold font-poppins tracking-wide text-white">Lawsuit Marketplace</h1>
     <nav>
@@ -44,21 +65,21 @@
     </nav>
   </header>
 
-  <section class="p-6">
+  <section class="p-6 relative z-10">
     <h2 class="text-2xl font-semibold mb-4">Browse by Game</h2>
     <div class="flex flex-wrap gap-4">
-      <a href="#" class="bg-gray-800 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Fortnite</a>
-      <a href="#" class="bg-gray-800 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Roblox</a>
-      <a href="#" class="bg-gray-800 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">R6 Siege</a>
-      <a href="#" class="bg-gray-800 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Minecraft</a>
-      <a href="#" class="bg-gray-800 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">CS:GO</a>
+      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Fortnite</a>
+      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Roblox</a>
+      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">R6 Siege</a>
+      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Minecraft</a>
+      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">CS:GO</a>
     </div>
   </section>
 
-  <main class="p-6">
+  <main class="p-6 relative z-10">
     <h2 class="text-3xl font-semibold mb-6">Featured Products</h2>
     <div class="flex flex-wrap gap-6 justify-center">
-      <div class="bg-gray-800 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]">
+      <div class="bg-gray-800 bg-opacity-80 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]">
         <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Discord Token Checker" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
         <h3 class="text-xl font-semibold mb-2">Crusador full</h3>
         <p class="text-gray-400 mb-4">Intel and AMD Supported.</p>
@@ -67,7 +88,7 @@
           <button class="bg-blue-600 px-4 py-2 rounded-xl hover:bg-blue-700 transition-transform duration-200 transform hover:scale-105">Buy Now</button>
         </div>
       </div>
-      <div class="bg-gray-800 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]">
+      <div class="bg-gray-800 bg-opacity-80 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]">
         <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Netflix Account Generator" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
         <h3 class="text-xl font-semibold mb-2">Test</h3>
         <p class="text-gray-400 mb-4">Test</p>
@@ -76,7 +97,7 @@
           <button class="bg-blue-600 px-4 py-2 rounded-xl hover:bg-blue-700 transition-transform duration-200 transform hover:scale-105">Buy Now</button>
         </div>
       </div>
-      <div class="bg-gray-800 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]">
+      <div class="bg-gray-800 bg-opacity-80 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]">
         <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Email Bomber" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
         <h3 class="text-xl font-semibold mb-2">Test</h3>
         <p class="text-gray-400 mb-4">Test.</p>
@@ -88,7 +109,7 @@
     </div>
   </main>
 
-  <section class="p-6 mt-12 flex justify-center gap-12 text-white text-lg font-semibold">
+  <section class="p-6 mt-12 flex justify-center gap-12 text-white text-lg font-semibold relative z-10">
     <div>
       Customers: <span id="customers-count" class="text-blue-400">0</span>+
     </div>
@@ -97,7 +118,7 @@
     </div>
   </section>
 
-  <footer class="p-6 mt-6 text-center text-gray-500">
+  <footer class="p-6 mt-6 text-center text-gray-500 relative z-10">
     <div class="flex justify-center gap-6 mb-4">
       <a href="https://discord.com" target="_blank" aria-label="Discord">
         <svg class="w-6 h-6 fill-current text-gray-400 hover:text-white transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240">
@@ -106,34 +127,121 @@
       </a>
       <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
         <svg class="w-6 h-6 fill-current text-gray-400 hover:text-white transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-          <path d="M41.5 15.1c-3.3 0-6.2-1.1-8.6-2.9v14.2c0 7.9-6.5 14.3-14.4 14.3S4 34.3 4 26.4 10.5 12 18.5 12c1.3 0 2.6.2 3.8.6v6.9c-1.1-.7-2.4-1.1-3.8-1.1-4.2 0-7.6 3.4-7.6 7.5s3.4 7.5 7.6 7.5 7.6-3.4 7.6-7.5V4.2h6.8c.6 5.9 5.5 10.5 11.4 10.9v6z"/>
-        </svg>
-      </a>
-      <a href="https://youtube.com" target="_blank" aria-label="YouTube">
-        <svg class="w-6 h-6 fill-current text-gray-400 hover:text-white transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-          <path d="M43.6 14.5s-.4-3.1-1.6-4.5c-1.5-1.6-3.2-1.6-4-1.7C33.3 8 24 8 24 8h-.1s-9.3 0-13.9.3c-.8.1-2.5.1-4 1.7-1.2 1.4-1.6 4.5-1.6 4.5S4 17.6 4 20.7v3.6c0 3.1.4 6.2.4 6.2s.4 3.1 1.6 4.5c1.5 1.6 3.6 1.5 4.5 1.7 3.3.3 14 .3 14 .3s9.3 0 13.9-.3c.8-.1 2.5-.1 4-1.7 1.2-1.4 1.6-4.5 1.6-4.5s.4-3.1.4-6.2v-3.6c0-3.1-.4-6.2-.4-6.2zM19.5 29.1V18.9l11.2 5.1-11.2 5.1z"/>
+          <path d="M41.5 15.1c-3.3 0-6.2-1.1-8.6-2.9v14.2c0 7.9-6.5 14.3-14.4 14.3-7.9 0-14.4-6.4-14.4-14.3S10.6 12 18.5 12c1.4 0 2.7.3 3.9.8v-7.3c-1.4-.4-2.9-.7-4.5-.7-9.4 0-17 7.6-17 17 0 9.4 7.6 17 17 17 9.3 0 16.9-7.3 17-16.5V15.1z"/>
         </svg>
       </a>
     </div>
-    <p class="text-sm">&copy; 2025 Lawsuit. All rights reserved.</p>
+    &copy; 2024 Lawsuit MarketPlace. All rights reserved.
   </footer>
 
+  <!-- Particles.js library -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    const customersCount = document.getElementById('customers-count');
-    let count = 0;
-    const target = 400;
-    const increment = 5;
-    const intervalTime = 25;
-
-    const counter = setInterval(() => {
-      count += increment;
-      if (count >= target) {
-        customersCount.textContent = target;
-        clearInterval(counter);
-      } else {
-        customersCount.textContent = count;
-      }
-    }, intervalTime);
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false,
+          "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 6,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 140,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
   </script>
 </body>
 </html>
