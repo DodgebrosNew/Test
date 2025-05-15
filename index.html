@@ -419,6 +419,20 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
   });
 </script>
+document.querySelectorAll('.product-card').forEach(card => {
+  const prices = JSON.parse(card.getAttribute('data-prices'));
+  const periodSelect = card.querySelector('.period-select');
+  const priceDisplay = card.querySelector('.price-display');
+
+  // Set initial price based on default selected period
+  priceDisplay.textContent = `$${prices[periodSelect.value].toFixed(2)}`;
+
+  // Update price on period change
+  periodSelect.addEventListener('change', () => {
+    const selectedPeriod = periodSelect.value;
+    priceDisplay.textContent = `$${prices[selectedPeriod].toFixed(2)}`;
+  });
+});
 
 </body>
 </html>
