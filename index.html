@@ -77,6 +77,9 @@
   </div>
 </section>
 
+<div id="no-products" class="hidden text-center text-gray-400 mt-6">
+  No products found.
+</div>
 
   <main class="p-6 relative z-10">
     <h2 class="text-3xl font-semibold mb-6">Featured Products</h2>
@@ -248,7 +251,13 @@
   <script>
 document.addEventListener('DOMContentLoaded', () => {
   const filters = document.querySelectorAll('.game-filter');
-  const products = document.querySelectorAll('.product-card'); // target product cards only
+  const products = document.querySelectorAll('.product-card');
+  const noProductsMessage = document.getElementById('no-products');
+
+  function updateNoProductsMessage() {
+    const anyVisible = Array.from(products).some(product => product.style.display === 'block');
+    noProductsMessage.style.display = anyVisible ? 'none' : 'block';
+  }
 
   filters.forEach(filter => {
     filter.addEventListener('click', (e) => {
@@ -263,9 +272,21 @@ document.addEventListener('DOMContentLoaded', () => {
           product.style.display = 'none';
         }
       });
+
+      // Update the "no products found" message visibility
+      updateNoProductsMessage();
+
+      // Remove active styling from all filters
+      filters.forEach(f => f.classList.remove('bg-blue-600', 'text-white'));
+      // Add active styling to clicked filter
+      filter.classList.add('bg-blue-600', 'text-white');
     });
   });
+
+  // Initially show all products and hide no-products message
+  updateNoProductsMessage();
 });
+
 
 </script>
 
