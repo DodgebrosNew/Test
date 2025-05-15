@@ -1,1 +1,58 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - Lawsuit Marketplace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white p-6 font-sans">
+  <h1 class="text-3xl font-semibold mb-6">🛒 Your Cart</h1>
+
+  <div id="cart-items" class="space-y-4"></div>
+
+  <div id="cart-summary" class="mt-6 text-xl font-semibold">
+    Total: $<span id="total-price">0.00</span>
+  </div>
+
+  <button id="clear-cart" class="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-xl">Clear Cart</button>
+
+  <script>
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartContainer = document.getElementById('cart-items');
+    const totalPriceEl = document.getElementById('total-price');
+
+    let total = 0;
+
+    if (cartItems.length === 0) {
+      cartContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
+    } else {
+      cartItems.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.className = "flex items-center gap-4 p-4 bg-gray-800 rounded-xl";
+
+        itemEl.innerHTML = `
+          <img src="${item.img}" class="w-24 h-24 object-cover rounded-lg" />
+          <div>
+            <h2 class="text-xl font-bold">${item.title}</h2>
+            <p class="text-gray-300">${item.price}</p>
+          </div>
+        `;
+
+        cartContainer.appendChild(itemEl);
+
+        const priceNum = parseFloat(item.price.replace('$', ''));
+        total += priceNum;
+      });
+
+      totalPriceEl.textContent = total.toFixed(2);
+    }
+
+    document.getElementById('clear-cart').addEventListener('click', () => {
+      localStorage.removeItem('cart');
+      location.reload();
+    });
+  </script>
+</body>
+</html>
