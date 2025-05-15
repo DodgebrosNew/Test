@@ -65,21 +65,23 @@
     </nav>
   </header>
 
-  <section class="p-6 relative z-10">
-    <h2 class="text-2xl font-semibold mb-4">Browse by Game</h2>
-    <div class="flex flex-wrap gap-4">
-      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Fortnite</a>
-      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Roblox</a>
-      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">R6 Siege</a>
-      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Minecraft</a>
-      <a href="#" class="bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">CS:GO</a>
-    </div>
-  </section>
+<section class="p-6 relative z-10">
+  <h2 class="text-2xl font-semibold mb-4">Browse by Game</h2>
+  <div class="flex flex-wrap gap-4">
+    <a href="#" data-game="Fortnite" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Fortnite</a>
+    <a href="#" data-game="Roblox" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Roblox</a>
+    <a href="#" data-game="R6 Siege" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">R6 Siege</a>
+    <a href="#" data-game="Minecraft" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Minecraft</a>
+    <a href="#" data-game="CS:GO" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">CS:GO</a>
+    <a href="#" data-game="all" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Show All</a>
+  </div>
+</section>
+
 
   <main class="p-6 relative z-10">
     <h2 class="text-3xl font-semibold mb-6">Featured Products</h2>
     <div class="flex flex-wrap gap-6 justify-center">
-      <div class="bg-gray-800 bg-opacity-80 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]">
+      <div data-game="Roblox" class="bg-gray-800 bg-opacity-80 p-6 rounded-2xl shadow transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-[320px]">
         <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Discord Token Checker" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
         <h3 class="text-xl font-semibold mb-2">Crusador full</h3>
         <p class="text-gray-400 mb-4">Intel and AMD Supported.</p>
@@ -243,5 +245,29 @@
       "retina_detect": true
     });
   </script>
+  <script>
+  // Wait for the DOM to fully load
+  document.addEventListener('DOMContentLoaded', () => {
+    const filters = document.querySelectorAll('.game-filter');
+    const products = document.querySelectorAll('[data-game]');
+
+    filters.forEach(filter => {
+      filter.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const selectedGame = filter.getAttribute('data-game');
+
+        products.forEach(product => {
+          if (selectedGame === 'all' || product.getAttribute('data-game') === selectedGame) {
+            product.style.display = 'block';
+          } else {
+            product.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
