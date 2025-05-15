@@ -246,27 +246,27 @@
     });
   </script>
   <script>
-  // Wait for the DOM to fully load
-  document.addEventListener('DOMContentLoaded', () => {
-    const filters = document.querySelectorAll('.game-filter');
-    const products = document.querySelectorAll('[data-game]');
+document.addEventListener('DOMContentLoaded', () => {
+  const filters = document.querySelectorAll('.game-filter');
+  const products = document.querySelectorAll('.product-card'); // target product cards only
 
-    filters.forEach(filter => {
-      filter.addEventListener('click', (e) => {
-        e.preventDefault();
+  filters.forEach(filter => {
+    filter.addEventListener('click', (e) => {
+      e.preventDefault();
 
-        const selectedGame = filter.getAttribute('data-game');
+      const selectedGame = filter.getAttribute('data-game');
 
-        products.forEach(product => {
-          if (selectedGame === 'all' || product.getAttribute('data-game') === selectedGame) {
-            product.style.display = 'block';
-          } else {
-            product.style.display = 'none';
-          }
-        });
+      products.forEach(product => {
+        if (selectedGame === 'all' || product.getAttribute('data-game') === selectedGame) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
       });
     });
   });
+});
+
 </script>
 
 </body>
