@@ -301,6 +301,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Grab all buy buttons
+  const buyButtons = document.querySelectorAll('.product-card button');
+
+  buyButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const productCard = button.closest('.product-card');
+
+      // Gather product info
+      const product = {
+        id: productCard.dataset.game + '-' + productCard.querySelector('h3').textContent.trim(),
+        name: productCard.querySelector('h3').textContent.trim(),
+        price: productCard.querySelector('span').textContent.trim(),
+      };
+
+      // Get current cart or empty array
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Add product to cart
+      cart.push(product);
+
+      // Save updated cart
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      alert(`${product.name} added to cart!`);
+    });
+  });
+});
+</script>
 
 </body>
 </html>
