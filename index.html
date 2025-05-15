@@ -374,29 +374,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const cartCountEl = document.getElementById('cart-count');
-
-    function updateCartCount() {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      let totalCount = 0;
-      cart.forEach(item => {
-        totalCount += item.quantity || 1;
-      });
-
-      if (totalCount > 0) {
-        cartCountEl.textContent = totalCount;
-        cartCountEl.classList.remove('hidden');
-      } else {
-        cartCountEl.classList.add('hidden');
-      }
-    }
-
-    updateCartCount();
-  });
-
-</script>
 
 </body>
 </html>
