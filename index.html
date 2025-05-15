@@ -106,14 +106,6 @@
         <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Discord Token Checker" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
         <h3 class="text-xl font-semibold mb-2">Crusador full</h3>
         <p class="text-gray-400 mb-4">Intel and AMD Supported.</p>
-        <p class="text-gray-400 mb-2">Stock: <span class="stock-count">15</span></p>
-        <label for="period-select" class="block text-gray-300 mb-1">Choose period:</label>
-<select class="period-select bg-gray-700 text-white rounded px-2 py-1 w-full mb-4">
-  <option value="day" data-price-multiplier="1">Day</option>
-  <option value="week" data-price-multiplier="5">Week</option>
-  <option value="month" data-price-multiplier="15">Month</option>
-</select>
-
         <div class="flex justify-between items-center">
           <span class="text-lg font-bold">$4.99</span>
           <button class="bg-blue-600 px-4 py-2 rounded-xl hover:bg-blue-700 transition-transform duration-200 transform hover:scale-105">Buy Now</button>
@@ -123,14 +115,6 @@
         <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Netflix Account Generator" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
         <h3 class="text-xl font-semibold mb-2">Minecraft</h3>
         <p class="text-gray-400 mb-4">Minecraft</p>
-        <p class="text-gray-400 mb-2">Stock: <span class="stock-count">15</span></p>
-        <label for="period-select" class="block text-gray-300 mb-1">Choose period:</label>
-<select class="period-select bg-gray-700 text-white rounded px-2 py-1 w-full mb-4">
-  <option value="day" data-price-multiplier="1">Day</option>
-  <option value="week" data-price-multiplier="5">Week</option>
-  <option value="month" data-price-multiplier="15">Month</option>
-</select>
-
         <div class="flex justify-between items-center">
           <span class="text-lg font-bold">$7.99</span>
           <button class="bg-blue-600 px-4 py-2 rounded-xl hover:bg-blue-700 transition-transform duration-200 transform hover:scale-105">Buy Now</button>
@@ -140,14 +124,6 @@
         <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Email Bomber" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
         <h3 class="text-xl font-semibold mb-2">Fortnite</h3>
         <p class="text-gray-400 mb-4">Fortnite.</p>
-        <p class="text-gray-400 mb-2">Stock: <span class="stock-count">15</span></p>
-        <label for="period-select" class="block text-gray-300 mb-1">Choose period:</label>
-<select class="period-select bg-gray-700 text-white rounded px-2 py-1 w-full mb-4">
-  <option value="day" data-price-multiplier="1">Day</option>
-  <option value="week" data-price-multiplier="5">Week</option>
-  <option value="month" data-price-multiplier="15">Month</option>
-</select>
-
         <div class="flex justify-between items-center">
           <span class="text-lg font-bold">$2.49</span>
           <button class="bg-blue-600 px-4 py-2 rounded-xl hover:bg-blue-700 transition-transform duration-200 transform hover:scale-105">Buy Now</button>
@@ -393,35 +369,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // Save updated cart
       localStorage.setItem('cart', JSON.stringify(cart));
 
-      alert(`${product.name} added to cart!`);
+      alert(${product.name} added to cart!);
     });
   });
 });
-
-
-
-  document.querySelectorAll('.product-card').forEach(card => {
-  const select = card.querySelector('.period-select');
-  const priceSpan = card.querySelector('span.text-lg.font-bold');
-
-  // Get base price as a number (strip $)
-  const basePriceText = priceSpan.textContent.trim();
-  const basePrice = parseFloat(basePriceText.replace('$', ''));
-
-  function updatePrice() {
-    const selectedOption = select.options[select.selectedIndex];
-    const multiplier = parseFloat(selectedOption.getAttribute('data-price-multiplier'));
-    const newPrice = (basePrice * multiplier).toFixed(2);
-    priceSpan.textContent = `$${newPrice}`;
-  }
-
-  // Update price on select change
-  select.addEventListener('change', updatePrice);
-
-  // Initialize price on page load
-  updatePrice();
-});
-
 </script>
 
 </body>
