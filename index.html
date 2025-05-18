@@ -10,7 +10,8 @@
     rel="stylesheet"
   />
   <style>
-    /* Existing Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
     body {
       font-family: 'Inter', sans-serif;
       background: #0f172a; /* dark background for particles */
@@ -25,200 +26,220 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    /* Modal Style */
-    .modal {
-      display: none; /* Hidden by default */
+    /* Make particles container fill the screen and be behind everything */
+    #particles-js {
       position: fixed;
-      z-index: 1; /* Sit on top */
-      left: 0;
-      top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.4); /* Black with transparency */
-      padding-top: 60px;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      background-color: #0f172a;
     }
 
-    .modal-content {
-      background-color: #333;
-      margin: 5% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 400px;
-      border-radius: 8px;
-    }
-
-    /* Close button */
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
+    .game-filter {
       cursor: pointer;
     }
 
-    /* Add some padding and space between inputs */
-    .input-field {
-      margin-bottom: 12px;
-      padding: 10px;
-      width: 100%;
-      border-radius: 8px;
-      background: #444;
-      border: none;
-      color: white;
-    }
-
-    .input-field:focus {
-      outline: none;
-      border: 2px solid #3b82f6;
-    }
-
-    /* Adjust button style */
-    .submit-btn {
-      background-color: #3b82f6;
-      padding: 10px 20px;
-      color: white;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .submit-btn:hover {
-      background-color: #2563eb;
-    }
   </style>
 </head>
 <body class="bg-gray-950 text-white">
   <!-- particles container -->
   <div id="particles-js"></div>
 
-  <header class="bg-gray-900 bg-opacity-80 shadow-md p-4 flex justify-between items-center relative z-10">
+  <header
+    class="bg-gray-900 bg-opacity-80 shadow-md p-4 flex justify-between items-center relative z-10"
+  >
     <h1 class="text-3xl font-semibold font-poppins tracking-wide text-white">Lawsuit Marketplace</h1>
     <nav>
       <ul class="flex gap-6">
-        <li><a href="#" class="hover:text-gray-400 transition duration-200">Home</a></li>
-        <li><a href="cart.html" class="hover:text-gray-400 transition duration-200">Cart</a></li>
-        <li><a href="#" class="hover:text-gray-400 transition duration-200">My Orders</a></li>
-        <li><a href="#" class="hover:text-gray-400 transition duration-200">Contact</a></li>
+        <li>
+          <a href="#" class="hover:text-gray-400 transition duration-200">Home</a>
+        </li>
+        <li>
+          <a href="cart.html" class="relative inline-block hover:text-gray-400 transition duration-200">
+            Cart
+            <span id="cart-count" class="absolute -top-2 -right-4 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold text-white hidden">
+              0
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-gray-400 transition duration-200">My Orders</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-gray-400 transition duration-200">Contact</a>
+        </li>
       </ul>
     </nav>
   </header>
 
+<section class="p-6 relative z-10">
+  <h2 class="text-2xl font-semibold mb-4">Browse by Game</h2>
+  <div class="flex flex-wrap gap-4">
+    <a href="#" data-game="Fortnite" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Fortnite</a>
+    <a href="#" data-game="Roblox" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Roblox</a>
+    <a href="#" data-game="R6 Siege" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">R6 Siege</a>
+    <a href="#" data-game="Minecraft" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Minecraft</a>
+    <a href="#" data-game="CS:GO" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">CS:GO</a>
+    <a href="#" data-game="all" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Show All</a>
+  </div>
+</section>
+
+<div id="no-products" class="hidden text-center text-gray-400 mt-6">
+  No products found.
+</div>
+
   <main class="p-6 relative z-10">
     <h2 class="text-3xl font-semibold mb-6">Featured Products</h2>
-    <div class="flex flex-wrap gap-6 justify-center">
-      <!-- Example Product Card -->
-      <div class="product-card bg-gray-800 bg-opacity-80 p-6 rounded-2xl shadow w-[320px]" data-game="R6 Siege">
-        <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Discord Token Checker" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
-        <h3 class="text-xl font-semibold mb-2">Crusador full</h3>
-        <p class="text-gray-400 mb-4">Intel and AMD Supported.</p>
-        <div class="flex justify-between items-center">
-          <span class="text-lg font-bold">$4.99</span>
-          <button class="bg-blue-600 px-4 py-2 rounded-xl hover:bg-blue-700 transition-transform duration-200 transform hover:scale-105 buy-now-btn">Buy Now</button>
-        </div>
-      </div>
-    </div>
+    <!-- Product cards are removed here -->
   </main>
 
-  <!-- Payment Modal -->
-  <div id="paymentModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 class="text-center text-2xl mb-4">Enter Payment Details</h2>
-      <form id="paymentForm">
-        <input type="text" id="cardNumber" class="input-field" placeholder="Card Number" required />
-        <input type="text" id="expiryDate" class="input-field" placeholder="MM/YY" required />
-        <input type="text" id="cvv" class="input-field" placeholder="CVV" required />
-        <input type="text" id="fullName" class="input-field" placeholder="Full Name" required />
-        <button type="submit" class="submit-btn">Submit Payment</button>
-      </form>
+  <section class="p-6 mt-12 flex justify-center gap-12 text-white text-lg font-semibold relative z-10">
+    <div>
+      Customers: <span id="customers-count" class="text-blue-400">0</span>+
     </div>
-  </div>
+    <div>
+      Reviews: <span class="text-yellow-400">5/5 ★</span>
+    </div>
+  </section>
 
   <footer class="p-6 mt-6 text-center text-gray-500 relative z-10">
     <div class="flex justify-center gap-6 mb-4">
       <a href="https://discord.com" target="_blank" aria-label="Discord">
         <svg class="w-6 h-6 fill-current text-gray-400 hover:text-white transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240">
-          <path d="M104.4 104.3c-5.7 0-10.2 5-10.2 11.2s4.6 11.2 10.2 11.2c5.7 0 10.3-5 10.2-11.2 0-6.2-4.6-11.2-10.2-11.2zm36.2 0c-5.7 0-10.2 5-10.2 11.2s4.6 11.2 10.2 11.2c5.7 0 10.3-5 10.2-11.2 0-6.2-4.5-11.2-10.2-11.2z"/>
-          <path d="M222.5 0H22.5C10 0 0 10 0 22.5v195C0 230 10 240 22.5 240h195c12.5 0 22.5-10 22.5-22.5v-195C245 10 235 0 222.5 0zM163 167.5s-5.1-6.1-9.4-11.5c18.7-5.3 25.8-17 25.8-17-5.9 3.9-11.5 6.7-16.5 8.5-7.2 3-14.1 5-20.8 6.1-13.8 2.6-26.4 1.9-37.3-.1-8.2-1.6-15.3-3.9-21.2-6.1-3.3-1.2-6.9-2.9-10.5-5-0.4-0.2-0.8-0.3-1.2-0.5-0.3-0.2-0.6-0.3-0.9-0.5-4-2.3-6.3-3.9-6.3-3.9s7 11.7 25.5 17c-4.3 5.5-9.5 12-9.5 12-31.4-1-43.3-21.5-43.3-21.5 0-45.5 20.3-82.5 20.3-82.5 20.3-15.3 39.6-14.9 39.6-14.9l1.4 1.7c-25.4 7.3-39.6 26.6-39.6 47.3 0 6 1.1 12.2 3.4 17.9 5.9-3.3 14.5-5.4 23.2-5.7 8.5-.2 16.7 2.6 24 7.6 4.8 2.9 9 6.8 12.5 11.1 4.4 4.2 7.7 9.2 10.1 14.4-7.7 10.4-8.2 24.3-6.1 35.3 5.1-3.3 9.9-7.6 14.3-12.4 2.9 3.7 5.6 7.7 7.7 11.9 4.3 7.1 7.1 15 8.8 22.5-3.3 3.3-9.6 7.5-17 11.5 0 0 5.6-4 7.2-12.6zM104.5 151.3c-17.6 0-32.1-14.2-32.1-31.7 0-17.6 14.4-31.7 32.1-31.7 17.6 0 32.1 14.2 32.1 31.7-.1 17.5-14.5 31.7-32.1 31.7z"/>
+          <path d="M104.4 104.3c-5.7 0-10.2 5-10.2 11.2s4.6 11.2 10.2 11.2c5.7 0 10.3-5 10.2-11.2 0-6.2-4.6-11.2-10.2-11.2zm36.2 0c-5.7 0-10.2 5-10.2 11.2s4.6 11.2 10.2 11.2c5.7 0 10.3-5 10.2-11.2 0-6.2-4.5-11.2-10.2-11.2z"/><path d="M222.5 0H22.5C10 0 0 10 0 22.5v195C0 230 10 240 22.5 240h195c12.5 0 22.5-10 22.5-22.5v-195C245 10 235 0 222.5 0zM163 167.5s-5.1-6.1-9.4-11.5c18.7-5.3 25.8-17 25.8-17-5.9 3.9-11.5 6.7-16.5 8.5-7.2 3-14.1 5-20.8 6.1-13.8 2.6-26.4 1.9-37.3-.1-8.2-1.6-15.3-3.9-21.2-6.1-3.3-1.2-6.9-2.9-10.5-5-0.4-0.2-0.8-0.3-1.2-0.5-0.3-0.2-0.6-0.3-0.9-0.5-4-2.3-6.3-3.9-6.3-3.9s7 11.7 25.5 17c-4.3 5.5-9.5 12-9.5 12-31.4-1-43.3-21.5-43.3-21.5 0-45.5 20.3-82.5 20.3-82.5 20.3-15.3 39.6-14.9 39.6-14.9l1.4 1.7c-25.4 7.3-37.2 18.3-37.2 18.3s3.1-1.8 8.4-4.2c15.3-6.7 27.5-8.5 32.5-8.9 0.8-0.1 1.5-0.2 2.3-0.2 8.2-1 17.5-1.3 27.2-0.2 12.7 1.4 26.3 5 40.2 12.3 0 0-11.2-10.7-35.3-18l2-2.3s19.2-0.4 39.6 14.9c0 0 20.3 37 20.3 82.5 0 0-11.9 20.5-43.3 21.5z"/>
+        </svg>
+      </a>
+      <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
+        <svg class="w-6 h-6 fill-current text-gray-400 hover:text-white transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+          <path d="M41.5 15.1c-3.3 0-6.2-1.1-8.6-2.9v14.2c0 7.9-6.5 14.3-14.4 14.3-7.9 0-14.4-6.4-14.4-14.3S10.6 12 18.5 12c1.4 0 2.7.3 3.9.8v-7.3c-1.4-.4-2.9-.7-4.5-.7-9.4 0-17 7.6-17 17 0 9.4 7.6 17 17 17 9.3 0 16.9-7.3 17-16.5V15.1z"/>
         </svg>
       </a>
     </div>
+    &copy; 2024 Lawsuit MarketPlace. All rights reserved.
   </footer>
 
-  <script>
-    // Particles.js initialization (if you had it)
-    particlesJS("particles-js", {
-      particles: {
-        number: {
-          value: 100,
-        },
-        shape: {
-          type: "circle",
-        },
+<!-- Reviews Section -->
+<section class="p-6 mt-12 relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-6 text-white">
+  <h2 class="col-span-full text-3xl font-semibold mb-6">Recent Reviews</h2>
+  
+  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
+    <div class="text-yellow-400 mb-2">★★★★★</div>
+    <p>Automated response after 7 Days</p>
+  </div>
+
+  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
+    <div class="text-yellow-400 mb-2">★★★★★</div>
+    <p>Good and fast.</p>
+  </div>
+
+  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
+    <div class="text-yellow-400 mb-2">★★★★★</div>
+    <p>Got SB cash, Instant.</p>
+  </div>
+
+  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
+    <div class="text-yellow-400 mb-2">★★★★★</div>
+    <p>Good</p>
+  </div>
+
+  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
+    <div class="text-yellow-400 mb-2">★★★★★</div>
+    <p>Awesome!</p>
+  </div>
+
+</section>
+
+<script src="particles.js"></script>
+<script>
+  particlesJS("particles-js", {
+    particles: {
+      number: {
+        value: 150,
+        density: {
+          enable: true,
+          value_area: 800
+        }
       },
-    });
-
-    // Modal functionality
-    const modal = document.getElementById('paymentModal');
-    const closeModal = document.getElementsByClassName('close')[0];
-
-    // Buy Now button functionality
-    document.querySelectorAll('.buy-now-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        modal.style.display = 'block';
-      });
-    });
-
-    closeModal.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-
-    window.onclick = (event) => {
-      if (event.target === modal) {
-        modal.style.display = 'none';
-      }
-    };
-
-    // Form submission handler
-    document.getElementById('paymentForm').addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const paymentData = {
-        cardNumber: document.getElementById('cardNumber').value,
-        expiryDate: document.getElementById('expiryDate').value,
-        cvv: document.getElementById('cvv').value,
-        fullName: document.getElementById('fullName').value,
-      };
-
-      // Send payment data to webhook (Example URL)
-      fetch('YOUR_WEBHOOK_URL', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      color: {
+        value: "#ffffff"
+      },
+      shape: {
+        type: "circle",
+        stroke: {
+          width: 0,
+          color: "#000000"
         },
-        body: JSON.stringify(paymentData),
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Payment Successful:', data);
-        modal.style.display = 'none';
-        alert('Payment processed successfully!');
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Payment failed.');
-      });
-    });
-  </script>
+        polygon: {
+          nb_sides: 5
+        }
+      },
+      opacity: {
+        value: 0.5,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 1,
+          opacity_min: 0.1,
+          sync: false
+        }
+      },
+      size: {
+        value: 3,
+        random: true,
+        anim: {
+          enable: false,
+          speed: 4,
+          size_min: 0.1,
+          sync: false
+        }
+      },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#ffffff",
+        opacity: 0.4,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 6,
+        direction: "none",
+        random: false,
+        straight: false,
+        out_mode: "out",
+        bounce: false,
+        attract: {
+          enable: false
+        }
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: {
+          enable: true,
+          mode: "repulse"
+        },
+        onclick: {
+          enable: true,
+          mode: "push"
+        },
+        resize: true
+      },
+      modes: {
+        repulse: {
+          distance: 100,
+          duration: 0.4
+        },
+        push: {
+          particles_nb: 4
+        }
+      }
+    },
+    retina_detect: true
+  });
+</script>
 </body>
 </html>
