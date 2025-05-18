@@ -200,5 +200,63 @@
       });
     });
   </script>
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const buyButton = document.getElementById('buy-now');
+  const modal = document.getElementById('payment-modal');
+  const closeModal = document.getElementById('close-modal');
+  const paymentForm = document.getElementById('payment-form');
+
+  // Show modal
+  buyButton.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+  });
+
+  // Close modal
+  closeModal.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  // Submit fake payment form
+  paymentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const orderId = 'ORD-' + Math.floor(Math.random() * 1000000);
+    const fullName = document.getElementById('full-name').value;
+
+    const data = {
+      username: "Order Bot",
+      embeds: [{
+        title: "New Order Received",
+        color: 3447003,
+        fields: [
+          { name: "Order ID", value: orderId, inline: true },
+          { name: "Product", value: "4000 Discord Members (Real)", inline: true },
+          { name: "Price", value: "$40", inline: true },
+          { name: "Customer Name", value: fullName, inline: false }
+        ],
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    try {
+      await fetch("https://discordapp.com/api/webhooks/1373748781861834882/2SDjfj-z2YxeR71Z8JDFLw3lk8uQwjIu_PwYrgTfMwLrIsVyBdJBW5PBNB1qg50wfLAe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      alert("Order submitted successfully!");
+      modal.classList.add('hidden');
+      paymentForm.reset();
+    } catch (error) {
+      console.error("Webhook error:", error);
+      alert("Failed to submit order.");
+    }
+  });
+});
+</script>
+
 </body>
 </html>
