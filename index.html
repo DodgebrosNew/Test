@@ -29,7 +29,8 @@
       margin: 5% auto;
       padding: 20px;
       border: 1px solid #888;
-      width: 50%;
+      width: 40%;
+      border-radius: 10px;
     }
 
     input, button {
@@ -39,6 +40,7 @@
       border: 1px solid #888;
       background-color: #444;
       color: #fff;
+      border-radius: 8px;
     }
 
     button {
@@ -50,23 +52,59 @@
       background-color: #0056b3;
     }
 
+    .product-card {
+      background-color: #1f2937;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .product-description {
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+
+    .product-price {
+      font-size: 1.25rem;
+      color: #34d399;
+      margin-bottom: 20px;
+    }
+
+    .buy-now-button {
+      background-color: #34d399;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .buy-now-button:hover {
+      background-color: #10b981;
+    }
   </style>
 </head>
-<body class="bg-gray-950 text-white">
-  <!-- particles container -->
-  <div id="particles-js"></div>
-
-  <!-- Header -->
-  <div class="flex justify-center items-center py-10">
-    <h1 class="text-4xl font-bold">Welcome to Lawsuit Marketplace</h1>
-  </div>
-
-  <!-- Product Card -->
-  <div class="flex justify-center">
-    <div class="bg-gray-800 p-8 rounded-lg w-96">
-      <h2 class="text-xl font-bold text-center mb-4">Exclusive Offer</h2>
-      <p class="text-center text-gray-400 mb-6">Get the latest and best product for your needs.</p>
-      <button id="buy-button" class="bg-green-600 p-3 text-white rounded-md hover:bg-green-700 w-full">Buy Now</button>
+<body class="bg-gray-900 text-white">
+  <!-- Main Container -->
+  <div class="container mx-auto my-12">
+    <div class="flex justify-center items-center">
+      <!-- Single Product Card -->
+      <div class="product-card">
+        <h2 class="product-title">Exclusive Product</h2>
+        <p class="product-description">This is the most exclusive and premium product available.</p>
+        <p class="product-price">$99.99</p>
+        <button id="buy-button" class="buy-now-button">Buy Now</button>
+      </div>
     </div>
   </div>
 
