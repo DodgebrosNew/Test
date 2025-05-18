@@ -5,28 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lawsuit MarketPlace</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
-
     body {
       font-family: 'Inter', sans-serif;
-      background: #0f172a; /* dark background for particles */
+      background: #0f172a;
       position: relative;
       overflow-x: hidden;
       margin: 0;
       padding: 0;
       color: white;
     }
-
     .font-poppins {
       font-family: 'Poppins', sans-serif;
     }
-
-    /* Make particles container fill the screen and be behind everything */
     #particles-js {
       position: fixed;
       width: 100%;
@@ -36,344 +29,104 @@
       left: 0;
       background-color: #0f172a;
     }
-
-
-.product-card {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.game-filter {
-  cursor: pointer;
-}
-
-    
+    .game-filter {
+      cursor: pointer;
+    }
   </style>
 </head>
 <body class="bg-gray-950 text-white">
-  <!-- particles container -->
   <div id="particles-js"></div>
 
-  <header
-    class="bg-gray-900 bg-opacity-80 shadow-md p-4 flex justify-between items-center relative z-10"
-  >
+  <header class="bg-gray-900 bg-opacity-80 shadow-md p-4 flex justify-between items-center relative z-10">
     <h1 class="text-3xl font-semibold font-poppins tracking-wide text-white">Lawsuit Marketplace</h1>
     <nav>
       <ul class="flex gap-6">
+        <li><a href="#" class="hover:text-gray-400 transition duration-200">Home</a></li>
         <li>
-          <a href="#" class="hover:text-gray-400 transition duration-200">Home</a>
+          <a href="cart.html" class="relative inline-block hover:text-gray-400 transition duration-200">
+            Cart
+            <span id="cart-count" class="absolute -top-2 -right-4 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold text-white hidden">0</span>
+          </a>
         </li>
-<li>
-  <a href="cart.html" class="relative inline-block hover:text-gray-400 transition duration-200">
-    Cart
-    <span id="cart-count" class="absolute -top-2 -right-4 bg-red-600 text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold text-white hidden">
-      0
-    </span>
-  </a>
-</li>
-
-        <li>
-          <a href="#" class="hover:text-gray-400 transition duration-200">My Orders</a>
-        </li>
-        <li>
-          <a href="#" class="hover:text-gray-400 transition duration-200">Contact</a>
-        </li>
+        <li><a href="#" class="hover:text-gray-400 transition duration-200">My Orders</a></li>
+        <li><a href="#" class="hover:text-gray-400 transition duration-200">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-<section class="p-6 relative z-10">
-  <h2 class="text-2xl font-semibold mb-4">Browse by Game</h2>
-  <div class="flex flex-wrap gap-4">
-    <a href="#" data-game="Fortnite" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Fortnite</a>
-    <a href="#" data-game="Roblox" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Roblox</a>
-    <a href="#" data-game="R6 Siege" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">R6 Siege</a>
-    <a href="#" data-game="Minecraft" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Minecraft</a>
-    <a href="#" data-game="CS:GO" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">CS:GO</a>
-    <a href="#" data-game="all" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Show All</a>
-  </div>
-</section>
+  <section class="p-6 relative z-10">
+    <h2 class="text-2xl font-semibold mb-4">Browse by Game</h2>
+    <div class="flex flex-wrap gap-4">
+      <a href="#" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Fortnite</a>
+      <a href="#" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Roblox</a>
+      <a href="#" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">R6 Siege</a>
+      <a href="#" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Minecraft</a>
+      <a href="#" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">CS:GO</a>
+      <a href="#" class="game-filter bg-gray-800 bg-opacity-80 px-4 py-2 rounded-xl hover:bg-gray-700 transition-transform duration-200 transform hover:scale-105">Show All</a>
+    </div>
+  </section>
 
-<div id="no-products" class="hidden text-center text-gray-400 mt-6">
-  No products found.
-</div>
+  <div id="no-products" class="text-center text-gray-400 mt-6">
+    No products found.
+  </div>
 
   <main class="p-6 relative z-10">
     <h2 class="text-3xl font-semibold mb-6">Featured Products</h2>
     <div class="flex flex-wrap gap-6 justify-center">
-      <div data-game="R6 Siege" class="product-card bg-gray-800 bg-opacity-80 p-6 rounded-2xl shadow ... w-[320px]">
-        <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Discord Token Checker" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
-        <h3 class="text-xl font-semibold mb-2">Crusador full</h3>
-        <p class="text-gray-400 mb-4">Intel and AMD Supported.</p>
-        <div class="flex justify-between items-center">
-          <span class="text-lg font-bold">$4.99</span>
-          <button class="bg-blue-600 px-4 py-2 rounded-xl hover:bg-blue-700 transition-transform duration-200 transform hover:scale-105">Buy Now</button>
-        </div>
-      </div>
-      <div data-game="Minecraft" class="product-card bg-gray-800 bg-opacity-80 p-6 rounded-2xl shadow ... w-[320px]">
-        <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Netflix Account Generator" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
-        <h3 class="text-xl font-semibold mb-2">Minecraft</h3>
-        <p class="text-gray-400 mb-4">Minecraft</p>
-        <div class="flex justify-between items-center">
-          <span class="text-lg font-bold">$7.99</span>
-          <button class="bg-blue-600 px-4 py-2 rounded-xl hover:bg-blue-700 transition-transform duration-200 transform hover:scale-105">Buy Now</button>
-        </div>
-      </div>
-      <div data-game="Fortnite" class="product-card bg-gray-800 bg-opacity-80 p-6 rounded-2xl shadow ... w-[320px]">
-        <img src="https://i.postimg.cc/HnsSBH2m/public-1.png" alt="Email Bomber" class="rounded-xl mb-4 w-[320px] h-[240px] object-cover" />
-        <h3 class="text-xl font-semibold mb-2">Fortnite</h3>
-        <p class="text-gray-400 mb-4">Fortnite.</p>
-        <div class="flex justify-between items-center">
-          <span class="text-lg font-bold">$2.49</span>
-          <button class="bg-blue-600 px-4 py-2 rounded-xl hover:bg-blue-700 transition-transform duration-200 transform hover:scale-105">Buy Now</button>
-        </div>
-      </div>
-
-
+      <!-- All products removed -->
     </div>
   </main>
 
   <section class="p-6 mt-12 flex justify-center gap-12 text-white text-lg font-semibold relative z-10">
-    <div>
-      Customers: <span id="customers-count" class="text-blue-400">0</span>+
-    </div>
-    <div>
-      Reviews: <span class="text-yellow-400">5/5 ★</span>
-    </div>
+    <div>Customers: <span id="customers-count" class="text-blue-400">0</span>+</div>
+    <div>Reviews: <span class="text-yellow-400">5/5 ★</span></div>
   </section>
 
   <footer class="p-6 mt-6 text-center text-gray-500 relative z-10">
     <div class="flex justify-center gap-6 mb-4">
       <a href="https://discord.com" target="_blank" aria-label="Discord">
+        <!-- Discord SVG -->
         <svg class="w-6 h-6 fill-current text-gray-400 hover:text-white transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240">
           <path d="M104.4 104.3c-5.7 0-10.2 5-10.2 11.2s4.6 11.2 10.2 11.2c5.7 0 10.3-5 10.2-11.2 0-6.2-4.6-11.2-10.2-11.2zm36.2 0c-5.7 0-10.2 5-10.2 11.2s4.6 11.2 10.2 11.2c5.7 0 10.3-5 10.2-11.2 0-6.2-4.5-11.2-10.2-11.2z"/><path d="M222.5 0H22.5C10 0 0 10 0 22.5v195C0 230 10 240 22.5 240h195c12.5 0 22.5-10 22.5-22.5v-195C245 10 235 0 222.5 0zM163 167.5s-5.1-6.1-9.4-11.5c18.7-5.3 25.8-17 25.8-17-5.9 3.9-11.5 6.7-16.5 8.5-7.2 3-14.1 5-20.8 6.1-13.8 2.6-26.4 1.9-37.3-.1-8.2-1.6-15.3-3.9-21.2-6.1-3.3-1.2-6.9-2.9-10.5-5-0.4-0.2-0.8-0.3-1.2-0.5-0.3-0.2-0.6-0.3-0.9-0.5-4-2.3-6.3-3.9-6.3-3.9s7 11.7 25.5 17c-4.3 5.5-9.5 12-9.5 12-31.4-1-43.3-21.5-43.3-21.5 0-45.5 20.3-82.5 20.3-82.5 20.3-15.3 39.6-14.9 39.6-14.9l1.4 1.7c-25.4 7.3-37.2 18.3-37.2 18.3s3.1-1.8 8.4-4.2c15.3-6.7 27.5-8.5 32.5-8.9 0.8-0.1 1.5-0.2 2.3-0.2 8.2-1 17.5-1.3 27.2-0.2 12.7 1.4 26.3 5 40.2 12.3 0 0-11.2-10.7-35.3-18l2-2.3s19.2-0.4 39.6 14.9c0 0 20.3 37 20.3 82.5 0 0-11.9 20.5-43.3 21.5z"/>
         </svg>
       </a>
-      <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
-        <svg class="w-6 h-6 fill-current text-gray-400 hover:text-white transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-          <path d="M41.5 15.1c-3.3 0-6.2-1.1-8.6-2.9v14.2c0 7.9-6.5 14.3-14.4 14.3-7.9 0-14.4-6.4-14.4-14.3S10.6 12 18.5 12c1.4 0 2.7.3 3.9.8v-7.3c-1.4-.4-2.9-.7-4.5-.7-9.4 0-17 7.6-17 17 0 9.4 7.6 17 17 17 9.3 0 16.9-7.3 17-16.5V15.1z"/>
-        </svg>
-      </a>
     </div>
-    &copy; 2024 Lawsuit MarketPlace. All rights reserved.
+    <p>&copy; 2025 Lawsuit Marketplace. All rights reserved.</p>
   </footer>
 
-<!-- Reviews Section -->
-<section class="p-6 mt-12 relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-6 text-white">
-  <h2 class="col-span-full text-3xl font-semibold mb-6">Recent Reviews</h2>
-  
-  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
-    <div class="text-yellow-400 mb-2">★★★★★</div>
-    <p>Automated response after 7 Days</p>
-  </div>
-
-  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
-    <div class="text-yellow-400 mb-2">★★★★★</div>
-    <p>Good and fast.</p>
-  </div>
-
-  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
-    <div class="text-yellow-400 mb-2">★★★★★</div>
-    <p>Got SB cash, Instant.</p>
-  </div>
-
-  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
-    <div class="text-yellow-400 mb-2">★★★★★</div>
-    <p>Good</p>
-  </div>
-
-  <div class="bg-gray-800 rounded-xl p-4 shadow-md">
-    <div class="text-yellow-400 mb-2">★★★★★</div>
-    <p>W Lawsuit.</p>
-  </div>
-</section>
-
-<footer class="p-6 mt-6 text-center text-gray-500 relative z-10">
-  <!-- footer content -->
-</footer>
-
-  
-  <!-- Particles.js library -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
     particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 80,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.3, random: true },
+        size: { value: 2, random: true },
+        move: { enable: true, speed: 0.5, direction: "none", out_mode: "out" }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" }
         },
-        "color": {
-          "value": "#ffffff"
-        },
-        "shape": {
-          "type": "circle",
-          "stroke": {
-            "width": 0,
-            "color": "#000000"
-          },
-          "polygon": {
-            "nb_sides": 5
-          }
-        },
-        "opacity": {
-          "value": 0.5,
-          "random": false,
-          "anim": {
-            "enable": false,
-            "speed": 1,
-            "opacity_min": 0.1,
-            "sync": false
-          }
-        },
-        "size": {
-          "value": 3,
-          "random": true,
-          "anim": {
-            "enable": false,
-            "speed": 40,
-            "size_min": 0.1,
-            "sync": false
-          }
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#ffffff",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 6,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false,
-          "attract": {
-            "enable": false,
-            "rotateX": 600,
-            "rotateY": 1200
-          }
+        modes: {
+          repulse: { distance: 50 },
+          push: { particles_nb: 4 }
         }
       },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "grab"
-          },
-          "onclick": {
-            "enable": true,
-            "mode": "push"
-          },
-          "resize": true
-        },
-        "modes": {
-          "grab": {
-            "distance": 140,
-            "line_linked": {
-              "opacity": 1
-            }
-          },
-          "bubble": {
-            "distance": 400,
-            "size": 40,
-            "duration": 2,
-            "opacity": 8,
-            "speed": 3
-          },
-          "repulse": {
-            "distance": 200,
-            "duration": 0.4
-          },
-          "push": {
-            "particles_nb": 4
-          },
-          "remove": {
-            "particles_nb": 2
-          }
-        }
-      },
-      "retina_detect": true
+      retina_detect: true
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const customers = document.getElementById('customers-count');
+      let count = 0;
+      const interval = setInterval(() => {
+        if (count >= 1200) clearInterval(interval);
+        customers.textContent = ++count;
+      }, 10);
     });
   </script>
-  <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const filters = document.querySelectorAll('.game-filter');
-  const products = document.querySelectorAll('.product-card');
-  const noProductsMessage = document.getElementById('no-products');
-
-  function updateNoProductsMessage() {
-    const anyVisible = Array.from(products).some(product => product.style.display === 'block');
-    noProductsMessage.style.display = anyVisible ? 'none' : 'block';
-  }
-
-  filters.forEach(filter => {
-    filter.addEventListener('click', (e) => {
-      e.preventDefault();
-
-      const selectedGame = filter.getAttribute('data-game');
-
-      products.forEach(product => {
-        if (selectedGame === 'all' || product.getAttribute('data-game') === selectedGame) {
-          product.style.display = 'block';
-        } else {
-          product.style.display = 'none';
-        }
-      });
-
-      // Update the "no products found" message visibility
-      updateNoProductsMessage();
-
-      // Remove active styling from all filters
-      filters.forEach(f => f.classList.remove('bg-blue-600', 'text-white'));
-      // Add active styling to clicked filter
-      filter.classList.add('bg-blue-600', 'text-white');
-    });
-  });
-
-  // Initially show all products and hide no-products message
-  updateNoProductsMessage();
-});
-
-
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Grab all buy buttons
-  const buyButtons = document.querySelectorAll('.product-card button');
-
-  buyButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const productCard = button.closest('.product-card');
-
-      // Gather product info
-      const product = {
-        id: productCard.dataset.game + '-' + productCard.querySelector('h3').textContent.trim(),
-        name: productCard.querySelector('h3').textContent.trim(),
-        price: productCard.querySelector('span').textContent.trim(),
-      };
-
-      // Get current cart or empty array
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-      // Add product to cart
-      cart.push(product);
-
-      // Save updated cart
-      localStorage.setItem('cart', JSON.stringify(cart));
-
-      alert(${product.name} added to cart!);
-    });
-  });
-});
-</script>
-
 </body>
 </html>
